@@ -1,4 +1,5 @@
 
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,3 +33,4 @@ body {
   /* 🛑 Using CSS variables from layout.tsx for font-family is recommended */
   font-family: var(--font-sans, Arial, Helvetica, sans-serif); 
 }
+
