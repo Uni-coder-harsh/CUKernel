@@ -1,0 +1,48 @@
+{ "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    // 🛑 CRITICAL FIXES FOR EXTERNAL LIBRARIES AND TYPES 🛑
+    "types": [
+      "node",
+      "jest",
+      "mapbox-gl", // For Mapbox core types
+      "@mapbox/mapbox-gl-geocoder", // For Geocoder types
+      "geojson" // For GeoJSON and Turf.js types
+    ],
+    "target": "es5" // Target ES5 for broad browser compatibility
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
