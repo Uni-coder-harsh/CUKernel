@@ -1,17 +1,11 @@
-/* src/app/globals.css */
 
-/* 🛑 FIX 1: Tailwind base, components, and utilities must be imported first */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-/* 🛑 FIX 2: Removed '@import "tailwindcss";' as it's redundant/misplaced */
-
-/* 🛑 FIX 3: Use Tilde (~) prefix for external CSS library resolution */
-@import '~mapbox-gl/dist/mapbox-gl.css';
-@import '~@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-
+@import 'mapbox-gl/dist/mapbox-gl.css';
+@import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 :root {
   --background: #ffffff;

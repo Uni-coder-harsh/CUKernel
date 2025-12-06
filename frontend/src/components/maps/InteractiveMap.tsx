@@ -3,17 +3,14 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import mapboxgl, { Map } from 'mapbox-gl';
-// 🛑 FIX: REMOVED CSS IMPORTS (mapbox-gl.css and mapbox-gl-geocoder.css)
-// These CSS files MUST be imported in src/app/globals.css
+// CSS imports REMOVED from here. They must be in src/app/globals.css
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import * as turf from '@turf/turf';
 import { MapPin, Loader, Navigation } from 'lucide-react';
 import clsx from 'clsx';
 
-// Import general event details from the centralized constants file
-import { EVENT_DETAILS } from '@/constants/index'; 
-
-// Import map-specific configuration from the config file
+// Import all configuration and event data
+import { EVENT_DETAILS } from '@/constants/index';
 import { 
     CUK_COORDS, 
     ROUTE_CITIES, 
@@ -22,10 +19,10 @@ import {
     DEFAULT_PITCH
 } from '@/config/EVENT_DETAILS';
 
-// Mapbox Token
+// Mapbox Token (read from environment)
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
 
-// Define Map Layers/Sources
+// Define Map Layers/Sources and type aliases
 const ROUTE_SOURCE_ID = 'route-source';
 const ROUTE_LAYER_ID = 'route-line';
 type CoordinateTuple = [number, number];
@@ -43,10 +40,10 @@ const InteractiveMap = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  // Driving mode is the fixed "easiest way" mode as requested
+  // Driving mode is the fixed "easiest way" mode
   const travelMode: 'driving' = 'driving'; 
 
-  // --- Helper to format duration/distance ---
+  // --- Helper Functions ---
   const formatTime = (seconds: number) => {
     const minutes = Math.round(seconds / 60);
     if (minutes < 60) return `${minutes} min`;
@@ -56,7 +53,7 @@ const InteractiveMap = () => {
   };
   const formatDistance = (meters: number) => (meters / 1000).toFixed(0);
 
-  // --- 1. ROUTE CALCULATION FUNCTION (Driving Only) ---
+  // --- 1. ROUTE CALCULATION FUNCTION ---
   const getRoute = useCallback(async (
     start: CoordinateTuple, 
     end: CoordinateTuple, 
@@ -70,12 +67,12 @@ const InteractiveMap = () => {
         `https://api.mapbox.com/directions/v5/mapbox/${travelMode}/${start[0]},${start[1]};${end[0]},${end[1]}?geometries=geojson&access_token=${mapboxgl.accessToken}`
       );
       
-      if (!response.ok) throw new Error('Failed to fetch route. Check coordinates or network.');
+      if (!response.ok) throw new Error('Failed to fetch route. Check credentials or network.');
 
       const data = await response.json();
       const route = data.routes[0];
 
-      if (!route) throw new Error('No driving route found.');
+      if (!route) throw new Error('No driving route found between these points.');
       
       const routeGeoJSON = turf.featureCollection([
         turf.feature(route.geometry),
@@ -134,7 +131,7 @@ const InteractiveMap = () => {
       accessToken: mapboxgl.accessToken,
       
       // UX FIX: Disable interactions that interfere with page scrolling
-      scrollZoom: false, // Prevents map from hijacking scroll
+      scrollZoom: false, 
       dragRotate: false,
       
     });
