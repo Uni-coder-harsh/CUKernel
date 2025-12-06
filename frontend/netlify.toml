@@ -1,12 +1,11 @@
-# netlify.toml
-
 [build]
-  # 🛑 CRITICAL FIX 1: Tell Netlify the Next.js project lives in the frontend folder
-  base = "frontend/"
-
-  # 🛑 CRITICAL FIX 2: Tell Netlify where the compiled files are located
-  # Next.js builds to the .next folder within the base directory.
-  publish = "frontend/.next" 
-
-  # The command Netlify should run inside the "base" directory
+  base = "frontend"
+  publish = ".next"
   command = "npm run build"
+
+[context.production.environment]
+  NODE_VERSION = "18"
+  NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN = "your_token_here" # or add in UI/Netlify env
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
