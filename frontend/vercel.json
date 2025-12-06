@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install --legacy-peer-deps && npm install mapbox-gl",
+  "installCommand": "npm install --legacy-peer-deps && npm install mapbox-gl --legacy-peer-deps",
   "builds": [
     {
       "src": "package.json",
