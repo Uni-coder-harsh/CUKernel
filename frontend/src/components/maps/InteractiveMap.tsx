@@ -3,17 +3,17 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import mapboxgl, { Map } from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+// 🛑 FIX: REMOVED CSS IMPORTS (mapbox-gl.css and mapbox-gl-geocoder.css)
+// These CSS files MUST be imported in src/app/globals.css
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import * as turf from '@turf/turf';
 import { MapPin, Loader, Navigation } from 'lucide-react';
 import clsx from 'clsx';
 
-// 🛑 FIX 1: Import general event details from the centralized constants file
+// Import general event details from the centralized constants file
 import { EVENT_DETAILS } from '@/constants/index'; 
 
-// 🛑 FIX 2: Only import map-specific configuration from the config file
+// Import map-specific configuration from the config file
 import { 
     CUK_COORDS, 
     ROUTE_CITIES, 
@@ -133,7 +133,7 @@ const InteractiveMap = () => {
       pitch: DEFAULT_PITCH,
       accessToken: mapboxgl.accessToken,
       
-      // 🛑 UX FIX: Disable interactions that interfere with page scrolling
+      // UX FIX: Disable interactions that interfere with page scrolling
       scrollZoom: false, // Prevents map from hijacking scroll
       dragRotate: false,
       
@@ -163,7 +163,7 @@ const InteractiveMap = () => {
         // Add geocoder control to map
         mapInstance.addControl(geocoder, 'top-left');
 
-        // 🛑 UX FIX: Move Geocoder UI from map container to custom container for styling/layout control
+        // UX FIX: Move Geocoder UI from map container to custom container for styling/layout control
         const geocoderElement = mapInstance.getContainer().querySelector('.mapboxgl-ctrl-geocoder');
         if (geocoderElement && geocoderContainerRef.current) {
             geocoderContainerRef.current.appendChild(geocoderElement);
@@ -197,9 +197,6 @@ const InteractiveMap = () => {
 
             // Add event listener to the marker pin to trigger route calculation
             marker.getElement().addEventListener('click', () => {
-                // Attach listener to the map element itself, not the marker
-                // This ensures the custom route button in the popup works if needed.
-                
                 // Show the fixed distance/duration info in the popup immediately upon opening
                 marker.getPopup().setHTML(`
                     <div class="text-sm font-bold text-gray-900">${city.name}</div>
@@ -267,7 +264,7 @@ const InteractiveMap = () => {
                         {routeInfo && (
                             <div className="mt-2 font-sans">
                                 <p className="text-sm text-gray-400">Destination: CUK</p>
-                                <p className="text-2xl font-extrabold text-white leading-none mt-1">{formatDistance(routeInfo.distance)} km</p>
+                                <p className="text-2xl font-extrabold text-white leading-none mt-1">{formatDistance(routeInfo.distance)} km}</p>
                                 <p className="text-sm font-semibold text-brand-neon/90">{formatTime(routeInfo.duration)} Driving Time</p>
                                 <p className="text-xs text-gray-400 mt-1">
                                     Current mode: Easiest Driving Route
