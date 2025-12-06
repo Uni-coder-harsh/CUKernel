@@ -264,7 +264,7 @@ const InteractiveMap = () => {
                         {routeInfo && (
                             <div className="mt-2 font-sans">
                                 <p className="text-sm text-gray-400">Destination: CUK</p>
-                                <p className="text-2xl font-extrabold text-white leading-none mt-1">{formatDistance(routeInfo.distance)} km}</p>
+                                <p className="text-2xl font-extrabold text-white leading-none mt-1">{formatDistance(routeInfo.distance)} km</p>
                                 <p className="text-sm font-semibold text-brand-neon/90">{formatTime(routeInfo.duration)} Driving Time</p>
                                 <p className="text-xs text-gray-400 mt-1">
                                     Current mode: Easiest Driving Route

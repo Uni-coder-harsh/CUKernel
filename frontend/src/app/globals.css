@@ -1,15 +1,17 @@
 /* src/app/globals.css */
 
+/* 🛑 FIX 1: Tailwind base, components, and utilities must be imported first */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 🛑 FIX: Add Mapbox CSS imports here */
-@import 'mapbox-gl/dist/mapbox-gl.css';
-@import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
+/* 🛑 FIX 2: Removed '@import "tailwindcss";' as it's redundant/misplaced */
 
-@import "tailwindcss";
+/* 🛑 FIX 3: Use Tilde (~) prefix for external CSS library resolution */
+@import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
 
 :root {
   --background: #ffffff;
@@ -33,5 +35,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* 🛑 Using CSS variables from layout.tsx for font-family is recommended */
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif); 
 }
