@@ -1,4 +1,5 @@
-{ "compilerOptions": {
+{
+  "compilerOptions": {
     "lib": [
       "dom",
       "dom.iterable",
@@ -28,10 +29,10 @@
     // 🛑 CRITICAL FIXES FOR EXTERNAL LIBRARIES AND TYPES 🛑
     "types": [
       "node",
-      "jest",
-      "mapbox-gl", // For Mapbox core types
+      // REMOVED "jest" to fix the "Cannot find type definition file" error
+      "mapbox-gl",          // For Mapbox core types
       "@mapbox/mapbox-gl-geocoder", // For Geocoder types
-      "geojson" // For GeoJSON and Turf.js types
+      "geojson"             // For GeoJSON and Turf.js types
     ],
     "target": "es5" // Target ES5 for broad browser compatibility
   },

@@ -1,39 +1,42 @@
 // src/app/providers.tsx
 'use client';
 
-// 🛑 FIX: Added useRef to the import list
-import { useEffect, useRef } from 'react'; 
-import { ReactLenis } from '@studio-freight/react-lenis';
+import { useEffect, useRef } from 'react';
+// 🛑 FIX: Importing ReactLenis from the new, stable 'lenis/react' package
+import { ReactLenis } from 'lenis/react'; 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register ScrollTrigger globally
+// Register ScrollTrigger globally (Ensuring GSAP is ready)
 gsap.registerPlugin(ScrollTrigger);
 
-// Helper function to sync GSAP ScrollTrigger with Lenis
+// Helper function to sync GSAP ScrollTrigger with the Lenis instance
 const useGSAPScrollSync = (lenis: any) => {
   useEffect(() => {
     if (!lenis) return;
 
     // Set up ScrollTrigger to update when Lenis updates
+    // This is the CRITICAL synchronization step for cinematic effects
     lenis.on('scroll', ScrollTrigger.update);
     
-    // Set the scroller proxy to the HTML element that Lenis controls (window/body)
+    // Set the scroller proxy to the HTML element that Lenis controls (document.body)
     ScrollTrigger.scrollerProxy(document.body, {
       scrollTop(value) {
-        return arguments.length ? lenis.scrollTo(value, { immediate: true }) : lenis.scroll;
+        return arguments.length 
+          ? lenis.scrollTo(value, { immediate: true }) 
+          : lenis.scroll; // Returns current scroll position
       },
       getBoundingClientRect() {
         return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
       },
-      // Fixed position support for scroll-triggered elements
+      // Ensures GSAP can correctly pin elements across browsers
       pinType: document.body.style.transform ? "transform" : "fixed"
     });
 
-    // Cleanup when component unmounts
+    // Cleanup: Kill all ScrollTriggers and remove the proxy when the component unmounts
     return () => {
       ScrollTrigger.killAll();
-      // 🛑 FIX: Changed null to undefined for correct GSAP type matching
+      // 🛑 FIX: Using undefined to correctly remove the scroller proxy
       ScrollTrigger.scrollerProxy(document.body, undefined); 
     };
   }, [lenis]);
@@ -43,7 +46,7 @@ const useGSAPScrollSync = (lenis: any) => {
 export default function GlobalProviders({ children }: { children: React.ReactNode }) {
   
   // Use a ref to store the Lenis instance
-  // We use 'any' type here because the ReactLenis ref object is complex and third-party
+  // The 'any' type is used here because the internal Lenis object is complex
   const lenisRef = useRef<any>(null); 
 
   // Run the sync hook whenever the Lenis instance is available
@@ -51,14 +54,13 @@ export default function GlobalProviders({ children }: { children: React.ReactNod
 
   return (
     // Wrap the entire application in the Lenis provider
-    // If the module error persists, you must re-run npm install --legacy-peer-deps
     <ReactLenis 
       root
       ref={lenisRef}
       options={{ 
-        lerp: 0.08,
-        duration: 1.2,
-        wheelMultiplier: 1.5,
+        lerp: 0.08,        // Controls smoothing intensity
+        duration: 1.2,     // Controls overall scroll duration
+        wheelMultiplier: 1.5, // Scroll sensitivity
       }}
     >
       {children}

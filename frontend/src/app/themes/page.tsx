@@ -19,7 +19,8 @@ export default function ThemesPage() {
           { opacity: 1, y: 0, duration: 1.0, delay: 0.5 }
         );
         
-        // Staggered reveal for the cards (This would be best placed inside ThemesSection.tsx)
+        // Staggered reveal for the cards (This targets cards inside ThemesSection)
+        // Note: The timing should align with the header reveal
         gsap.fromTo('.theme-card', 
             { opacity: 0, scale: 0.95 },
             { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.4)', delay: 1.0 }
@@ -53,7 +54,8 @@ export default function ThemesPage() {
                 </div>
                 
                 {/* Themes Grid */}
-                <ThemesSection renderAsPage={true} />
+                {/* 🛑 FIX: Changed prop name from renderAsPage to disableScrollAnimation */}
+                <ThemesSection disableScrollAnimation={true} />
                 
             </div>
         </main>

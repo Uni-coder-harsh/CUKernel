@@ -1,0 +1,9 @@
+{
+  "installCommand": "npm install --legacy-peer-deps",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
+  ]
+}
