@@ -253,14 +253,13 @@ const InteractiveMap = () => {
             key="mapbox-css-geocoder"
         />
 
-        {/* 🛑 NEW: City Buttons Container */}
         <div className="flex flex-wrap gap-2 p-4 bg-brand-dark/80 rounded-t-xl border border-b-0 border-brand-neon/50 mt-4">
             <h3 className="text-sm font-semibold text-brand-neon w-full mb-1">Quick Routes to CUK:</h3>
             {ROUTE_CITIES.map((city) => (
                 <button
                     key={city.name}
                     onClick={() => {
-                        setOrigin(city.coords);
+                        setOrigin(city.coords as CoordinateTuple);
                         setRouteInfo(null);
                         getRoute(city.coords as CoordinateTuple, CUK_COORDS);
                     }}
