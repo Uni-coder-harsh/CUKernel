@@ -1,12 +1,12 @@
 // src/config/EVENT_DETAILS.ts (FINAL MAP CONFIGURATION)
 
 // Central University of Karnataka Coordinates (Fixed Destination)
-export const CUK_COORDS: [number, number] = [76.8398, 17.2023]; // [Lng, Lat] format for Mapbox
+export const CUK_COORDS: [number, number] = [76.6731, 17.4335]; // [Lng, Lat] format for Mapbox  17.4335, 76.6731
 export const DESTINATION_ADDRESS = "Central University of Karnataka, Kadaganchi, Kalaburagi, Karnataka - 585367";
 
 // Default Map Settings
-export const DEFAULT_ZOOM = 12;
-export const DEFAULT_PITCH = 45;
+export const DEFAULT_ZOOM = 15;
+export const DEFAULT_PITCH = 35;
 
 // Fixed routes from major cities to CUK (Driving mode assumed as "easiest way")
 // NOTE: Coordinates here are [Lng, Lat]
