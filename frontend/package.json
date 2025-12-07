@@ -13,6 +13,7 @@
     "@mapbox/mapbox-gl-geocoder": "^5.1.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
+    "lenis": "^1.1.2",                         
     "@turf/turf": "^7.3.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.25",
@@ -26,7 +27,20 @@
     "three": "^0.181.2"
   },
   "devDependencies": {
-    "typescript": "5.9.3"
+    "@tailwindcss/postcss": "^4",
+    "@biomejs/biome": "2.2.0",
+    "@types/geojson": "^7946.0.16",
+    "@types/mapbox__mapbox-gl-geocoder": "^5.1.0",
+    "@types/mapbox-gl": "^3.4.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-transition-group": "^4.4.12",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   },
-  "overrides": {}
+  
+  "overrides": {
+    "lenis": "$lenis" 
+  }
 }

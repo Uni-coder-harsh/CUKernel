@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-// 🛑 FIX: Importing ReactLenis from the new, stable 'lenis/react' package
+// 🛑 FINAL FIX: Reverting to the correct subdirectory path for the React wrapper.
 import { ReactLenis } from 'lenis/react'; 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
